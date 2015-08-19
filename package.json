@@ -1,0 +1,44 @@
+{
+  "name": "generator-xapp",
+  "version": "0.1.0",
+  "description": "KISSY MINI 项目生成脚手架",
+  "keywords": [
+    "yeoman-generator",
+    "generator-mini"
+  ],
+  "homepage": "https://github.com/jayli/generator-xapp",
+  "bugs": "https://github.com/jayli/generator-xapp/issues",
+  "authors": [
+    {
+      "name": "bachi",
+      "email": "bachi@taobao.com",
+      "url": "http://jayli.github.io"
+    }
+  ],
+  "readmeFilename": "README.md",
+  "main": "app/index.js",
+  "repository": {
+    "type": "git",
+	"url": "git@github.com:jayli/generator-xapp.git"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "dependencies": {
+    "abc-generator": "~0.1.5",
+    "rmdir": "~1.0.4",
+    "git-config": "0.0.6",
+    "yeoman-generator": "~0.13.3"
+  },
+  "devDependencies": {
+    "mocha": "~1.10.0"
+  },
+  "engines": {
+    "node": ">=0.8.0"
+  },
+  "licenses": [
+    {
+      "type": "MIT"
+    }
+  ]
+}
