@@ -43,7 +43,7 @@ var MyGenerator = module.exports = function MyGenerator(args, options, config) {
 		var loadBasePromise = new Promise(function (resolve, reject) {
 
 			exec('cd src/widgets/;bower install;cd ../../', function (error, stdout, stderr) {
-				loadCallback('base libs', error, resolve, reject);
+				loadCallback('种子文件安装完毕!', error, resolve, reject);
 			}.bind(that));
 
 		});
@@ -244,6 +244,9 @@ MyGenerator.prototype.app = function app() {
 
 	// 创建config.js
 	this.template('src/config.js','src/config.js');
+
+	// 创建种子文件bower.json
+	this.copy('src/widgets/bower.json');
 
 	// 生成grunt命令
 	//this.copy('src/config.js','src/config.js');
