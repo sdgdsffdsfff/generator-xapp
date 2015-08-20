@@ -6,6 +6,7 @@ var ABC = require('abc-generator');
 var Promise = require('promise');
 var Logo = require('./logo').Logo;
 var exec = require('child_process').exec;
+var PageInit = require('../page/util.js').initPageFiles;
 var gitConfig = require('git-config'),
 	curGitUser = gitConfig.sync().user,
 	curUserName = curGitUser.name,
@@ -213,6 +214,7 @@ MyGenerator.prototype.git = function git() {
 	this.copy('_gitignore', '.gitignore');
 };
 
+
 MyGenerator.prototype.app = function app() {
 	var that = this;
 
@@ -237,8 +239,29 @@ MyGenerator.prototype.app = function app() {
 
 	// 生成grunt命令
 	this.copy('src/config.js','src/config.js');
-	
 
+	// 生成grunt命令文件
+	this.template('grunt/default/clean.js');
+	this.template('grunt/default/combohtml.js');
+	this.template('grunt/default/copy.js');
+	this.template('grunt/default/cssmin.js');
+	this.template('grunt/default/domman.js');
+	this.template('grunt/default/flexcombo.js');
+	this.template('grunt/default/kmb.js');
+	this.template('grunt/default/less.js');
+	this.template('grunt/default/replace.js');
+	this.template('grunt/default/sass.js');
+	this.template('grunt/default/uglify.js');
+	this.template('grunt/default/watch.js');
+	this.template('grunt/custom/domman.js');
+
+	// 初始化mod
+	this.template('src/mods/header.html');
+
+	// 初始化一个home Page
+	this.template('src/pages/index.html');
+	this.template('src/pages/index.js');
+	this.template('src/pages/index.scss','src/pages/index.'+this.cssCompile);
 };
 
 function consoleColor(str, num) {
