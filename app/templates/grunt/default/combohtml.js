@@ -26,10 +26,7 @@ module.exports = {
 			relative: '<%= assetsPath %>',
 			combineAssets: false, // 配合 relative 使用,将页面中所有以CDN引用的JS/CSS文件名进行拼合，CDN 服务器支持Combo功能时开启
 			// KISSY Modules Maps File 地址，以 relative 作为相对路径
-			comboMapFile: null,
-			meta: {
-				'pageid': '${path|regexp,"build/",""}'
-			}
+			comboMapFile: null
 		},
 		files: [
 			{
