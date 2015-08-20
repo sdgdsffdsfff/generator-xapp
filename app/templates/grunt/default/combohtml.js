@@ -10,7 +10,6 @@ module.exports = {
 			to: 'build/'
 		},
 		// KISSY Modules Maps File 地址
-		// comboMapFile:base + '/<%= abcpkg.group %>/<%= abcpkg.name %>/<%= abcpkg.version %>/map-min.js',
 		tidy: false,  // 是否重新格式化HTML
 		mockFilter: false, // 是否过滤Demo中的JuicerMock
 		comboJS: true, // 是否静态合并当前页面引用的本地js为一个文件
@@ -18,7 +17,6 @@ module.exports = {
 		convert2vm: false,// 是否将juicer语法块转换为vm格式
 		convert2php: false, // 是否将juicer语法块转换为php格式
 		comboExt: '_combined' // 静态合并后的js和css后缀
-		//htmlProxy: '<%= abcpkg.htmlProxy %>',      // htmlProxy 配置，用于产出线上页面区块替换为本地模块页面
 		//htmlProxyDestDir: 'html-fragments'      // html 代理区块页面生成到的目标目录
 	},
 	main: {
