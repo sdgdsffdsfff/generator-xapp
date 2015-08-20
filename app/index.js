@@ -241,19 +241,19 @@ MyGenerator.prototype.app = function app() {
 	//this.copy('src/config.js','src/config.js');
 
 	// 生成grunt命令文件
-	this.template('grunt/default/clean.js');
-	this.template('grunt/default/combohtml.js');
-	this.template('grunt/default/copy.js');
-	this.template('grunt/default/cssmin.js');
-	this.template('grunt/default/domman.js');
-	this.template('grunt/default/flexcombo.js');
-	this.template('grunt/default/kmb.js');
-	this.template('grunt/default/less.js');
-	this.template('grunt/default/replace.js');
-	this.template('grunt/default/sass.js');
-	this.template('grunt/default/uglify.js');
-	this.template('grunt/default/watch.js');
-	this.template('grunt/custom/domman.js');
+	this.copy('grunt/default/clean.js');
+	this.copy('grunt/default/combohtml.js');
+	this.copy('grunt/default/copy.js');
+	this.copy('grunt/default/cssmin.js');
+	this.copy('grunt/default/domman.js');
+	this.copy('grunt/default/flexcombo.js');
+	this.copy('grunt/default/kmb.js');
+	this.copy('grunt/default/less.js');
+	this.copy('grunt/default/replace.js');
+	this.copy('grunt/default/sass.js');
+	this.copy('grunt/default/uglify.js');
+	this.copy('grunt/default/watch.js');
+	this.copy('grunt/custom/domman.js');
 
 	// 初始化mod
 	this.template('src/mods/header.html');
