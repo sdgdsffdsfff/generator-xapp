@@ -1,0 +1,44 @@
+{
+  "name": "h5-test",
+  "version": "0.1.0",
+  "description": "a clam project",
+  "author": {
+    "name": "拔赤",
+    "email": "jay.li@alibaba-inc.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://gitlab.alibaba-inc.com/trip/h5-test"
+  },
+  "port": "8081",
+  "proxyPort": "8080",
+  "cssCompile": "scss",
+  "assetsPath": "../../",
+  "kmbOffline": [
+    "pages/**/*.js"
+  ],
+  "keywords": [
+    "clam",
+    "H5Test"
+  ],
+  "devDependencies": {
+    "grunt": "~0.4.5",
+    "time-grunt": "^0.2.10",
+    "grunt-contrib-copy": "",
+    "grunt-contrib-uglify": "~0.2.0",
+    "grunt-contrib-clean": "~0.4.0",
+    "grunt-contrib-less": "~0.5.0",
+    "grunt-contrib-sass": "~0.9.2",
+    "grunt-contrib-cssmin": "~0.5.0",
+    "grunt-contrib-watch": "",
+    "clam-util": "",
+    "grunt-exec": "",
+    "grunt-flexcombo": "",
+    "grunt-combohtml": "",
+    "grunt-replace": "",
+    "grunt-kmb": "",
+    "grunt-prompt": "",
+    "jit-grunt": ""
+  },
+  "dependencies": {}
+}

@@ -1,22 +1,23 @@
-## <%= packageName %> 文档
+## h5-test 项目文档
 
-<%=packageName%> 是由[generator-mpi](https://github.com/jayli/generator-mpi)生成。
+- 创建者: 拔赤
+- 创建者Email: jay.li@alibaba-inc.com
+- 项目地址: http://gitlab.alibaba-inc.com/trip/h5-test
 
-- 项目地址: http://<%= gitRepository %>/mpi/<%= packageName %>
+Demo 启动
 
-模块安装：
+	grunt demo
 
-	bower install mpi/<%= packageName %>
+离线包构建参数修改：修改`abc.json`里的basePath和baseUrl，确保构建的`cache_info.json`正确。在项目根目录执行make.sh，make.sh里的内容，参照注释修改
 
-模块文件使用 [KMD 规范](http://docs.kissyui.com/1.4/docs/html/guideline/kmd.html)，本目录不包含构建脚本，预览请安装here：`npm install -g serve-here`，完成后，在当前目录执行`here`
+离线包的在线调试：
 
-### 模块说明
+	grunt offline
 
-<%= packageDesc %>
+在线包调试：
 
-<%= author %> <%= email %>
+	grunt online
 
-### API 文档
+命令帮助:`yo clam:h`
 
 ### changeLog
-

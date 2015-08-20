@@ -1,0 +1,26 @@
+{
+  "name": "widgets",
+  "version": "0.1.0",
+  "authors": [
+    "拔赤 <jay.li@alibaba-inc.com>"
+  ],
+  "description": "widgets for project h5-test",
+  "moduleType": [
+    "amd"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "./",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "kissymini": "kissymini#1.0.0",
+    "cssreset": "cssreset#1.0.0"
+  }
+}
+
+
