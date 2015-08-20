@@ -50,14 +50,14 @@ var MyGenerator = module.exports = function MyGenerator(args, options, config) {
 						default: 'Y/n',
 						warning: ''
 					}
-				], function (err, props) {
-
+				], function (props, err) {
 					if (err) {
 						return this.emit('error', err);
 					}
 
 					this.npm_install = (/^(y|Y)/i).test(props.npm_install);
 					if (this.npm_install) {
+
 						this.npmInstall('', {}, function (err) {
 
 							if (err) {
@@ -238,7 +238,7 @@ MyGenerator.prototype.app = function app() {
 	this.template('src/config.js','src/config.js');
 
 	// 生成grunt命令
-	this.copy('src/config.js','src/config.js');
+	//this.copy('src/config.js','src/config.js');
 
 	// 生成grunt命令文件
 	this.template('grunt/default/clean.js');
@@ -259,9 +259,9 @@ MyGenerator.prototype.app = function app() {
 	this.template('src/mods/header.html');
 
 	// 初始化一个home Page
-	this.template('src/pages/index.html');
-	this.template('src/pages/index.js');
-	this.template('src/pages/index.scss','src/pages/index.'+this.cssCompile);
+	this.template('src/pages/home/index.html');
+	this.template('src/pages/home/index.js');
+	this.template('src/pages/home/index.scss','src/pages/home/index.'+this.cssCompile);
 };
 
 function consoleColor(str, num) {
