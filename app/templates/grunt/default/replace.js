@@ -6,8 +6,8 @@ module.exports = {
 	main: {
 		options: {
 			variables: {
-				'href="../../': 'href="<%= packageConfig.assetsPath %>/',
-				'src="../../': 'src="<%= packageConfig.assetsPath %>/'
+				'href="../../': 'href="<%= packageConfig.assetsPath %>',
+				'src="../../': 'src="<%= packageConfig.assetsPath %>'
 			},
 			prefix: ' '
 		},

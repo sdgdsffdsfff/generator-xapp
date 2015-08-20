@@ -1,25 +1,21 @@
 {
-  "name": "h5-test",
-  "version": "0.1.0",
-  "description": "a clam project",
+  "name": "<%= packageName %>",
+  "version": "<%= version %>",
+  "description": "<%= packageDesc%>",
   "author": {
-    "name": "拔赤",
-    "email": "jay.li@alibaba-inc.com"
+    "name": "<%= author %>",
+    "email": "<%= email %>"
   },
-  "repository": {
-    "type": "git",
-    "url": "http://gitlab.alibaba-inc.com/trip/h5-test"
-  },
-  "port": "8081",
-  "proxyPort": "8080",
-  "cssCompile": "scss",
-  "assetsPath": "../../",
+  "port":"<%= port %>",
+  "proxyPort":"<%= proxyPort %>",
+  "cssCompile":"<%= cssCompile %>",
+  "assetsPath": "<%= assetsPath %>",
   "kmbOffline": [
     "pages/**/*.js"
   ],
   "keywords": [
-    "clam",
-    "H5Test"
+    "kissymini",
+    "<%= projectName %>"
   ],
   "devDependencies": {
     "grunt": "~0.4.5",

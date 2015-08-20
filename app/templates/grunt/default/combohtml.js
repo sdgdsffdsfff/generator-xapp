@@ -25,12 +25,12 @@ module.exports = {
 		options: {
 			// assetseParser: !isH5, // 参照TIP@2014-8-15
 			// 本地文件引用替换为线上地址
-			relative: '//g.alicdn.com/<%= abcpkg.group %>/<%= abcpkg.name %>/<%= abcpkg.version %>/',
+			relative: '<%= assetsPath %>',
 			combineAssets: false, // 配合 relative 使用,将页面中所有以CDN引用的JS/CSS文件名进行拼合，CDN 服务器支持Combo功能时开启
 			// KISSY Modules Maps File 地址，以 relative 作为相对路径
 			comboMapFile: null,
 			meta: {
-				'pageid': '<%= abcpkg.name%>/${path|regexp,"build/",""}'
+				'pageid': '${path|regexp,"build/",""}'
 			}
 		},
 		files: [

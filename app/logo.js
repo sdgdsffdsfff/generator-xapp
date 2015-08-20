@@ -9,23 +9,19 @@ function Logo(contex) {
 	logo += ('need help?') + purple('  ===>  ') + green('yo clam:h') + '\n';
 
 	var logo = 
-		'\n' + 
-	 	blue(' ▄▄       ▄▄ ') + yellow(' ▄▄▄▄▄▄▄▄▄▄▄ ') + red(' ▄▄▄▄▄▄▄▄▄▄▄ \n') +
-		blue('▐░░▌     ▐░░▌') + yellow('▐░░░░░░░░░░░▌') + red('▐░░░░░░░░░░░▌\n') +
-		blue('▐░▌░▌   ▐░▐░▌') + yellow('▐░█▀▀▀▀▀▀▀█░▌') + red(' ▀▀▀▀█░█▀▀▀▀ \n') +
-		blue('▐░▌▐░▌ ▐░▌▐░▌') + yellow('▐░▌       ▐░▌') + red('     ▐░▌     \n') +
-		blue('▐░▌ ▐░▐░▌ ▐░▌') + yellow('▐░█▄▄▄▄▄▄▄█░▌') + red('     ▐░▌     \n') +
-		blue('▐░▌  ▐░▌  ▐░▌') + yellow('▐░░░░░░░░░░░▌') + red('     ▐░▌     \n') +
-		blue('▐░▌   ▀   ▐░▌') + yellow('▐░█▀▀▀▀▀▀▀▀▀ ') + red('     ▐░▌     \n') +
-		blue('▐░▌       ▐░▌') + yellow('▐░▌          ') + red('     ▐░▌     \n') +
-		blue('▐░▌       ▐░▌') + yellow('▐░▌          ') + red(' ▄▄▄▄█░█▄▄▄▄ \n') +
-		blue('▐░▌       ▐░▌') + yellow('▐░▌          ') + red('▐░░░░░░░░░░░▌\n') +
-		blue(' ▀         ▀ ') + yellow(' ▀           ') + red(' ▀▀▀▀▀▀▀▀▀▀▀ ') + ' ' + green(version) + '\n\n';
+		'\n' + [
+		'	____  ___                     ',
+		'	\   \/  /____  ______ ______  ',
+		'	 \     /\__  \ \____ \\____ \ ',
+		'	 /     \ / __ \|  |_> >  |_> >',
+		'	/___/\  (____  /   __/|   __/ ',
+		'		  \_/    \/|__|   |__|    '
+		].join('\n') + '\n' + green(version) + '\n\n';
 
                       
                            
 	logo += purple('➭') + ' http://m.kissyui.com' + '\n' +
-			purple('➭') + ' http://github.com/jayli/generator-mpi' + '\n';
+			purple('➭') + ' KISSY MINI 项目代码生成器' + '\n';
 
 	logo += '\nPlease follow these questions.\n';
 

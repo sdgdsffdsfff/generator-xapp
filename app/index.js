@@ -3,6 +3,7 @@ var util = require('util');
 var path = require('path');
 var yeoman = require('yeoman-generator');
 var ABC = require('abc-generator');
+var Promise = require('promise');
 var Logo = require('./logo').Logo;
 var exec = require('child_process').exec;
 var gitConfig = require('git-config'),
@@ -11,9 +12,8 @@ var gitConfig = require('git-config'),
 	curUserEmail = curGitUser.email;
 
 var MyGenerator = module.exports = function MyGenerator(args, options, config) {
-	this.pkg = JSON.parse(this.readFileAsString(path.join(__dirname, '../package.json')));
-
 	ABC.UIBase.apply(this, arguments);
+	this.pkg = JSON.parse(this.readFileAsString(path.join(__dirname, '../package.json')));
 
 	this.on('error', function () {
 	});
@@ -21,7 +21,57 @@ var MyGenerator = module.exports = function MyGenerator(args, options, config) {
 		var cb = this.async();
 		var that = this;
 
-		console.log(green('\n启动服务,命令行运行 here\n'));
+		var loadCallback = function (loadName, error, resolve, reject) {
+			if (error !== null) {
+				console.error('Load ' + loadName + ' error: ' + error);
+				reject(error);
+			} else {
+				console.log('Load ' + loadName + ' success');
+				resolve();
+			}
+		};
+
+		var loadBasePromise = new Promise(function (resolve, reject) {
+
+			exec('cd src/widgets/;bower install;cd ../../', function (error, stdout, stderr) {
+				loadCallback('base libs', error, resolve, reject);
+			}.bind(that));
+
+		});
+
+		Promise.all([loadBasePromise])
+			.then(function() {
+
+				this.prompt([
+					{
+						name   : 'npm_install',
+						message: 'Install node_modules now?',
+						default: 'Y/n',
+						warning: ''
+					}
+				], function (err, props) {
+
+					if (err) {
+						return this.emit('error', err);
+					}
+
+					this.npm_install = (/^(y|Y)/i).test(props.npm_install);
+					if (this.npm_install) {
+						this.npmInstall('', {}, function (err) {
+
+							if (err) {
+								return console.log('\n' + yellow('please run "sudo tnpm install"\n'));
+							}
+
+							console.log(green('\n\nnode modules was installed successful. \n\n'));
+						});
+					} else {
+						console.log(yellow('\n\nplease run "tnpm install --silent" before `grunt`\n'));
+						console.log(green('\ndone!\n'));
+					}
+				}.bind(that));
+
+			}.bind(that));
 
 	}.bind(this));
 };
@@ -34,9 +84,9 @@ MyGenerator.prototype.askFor = function askFor() {
 	// welcome message
 	console.log(Logo(this));
 
-	var bowerJSON = {};
+	var packageJSON = {};
 	try {
-		bowerJSON = require(path.resolve(process.cwd(), 'bower.json'));
+		packageJSON = require(path.resolve(process.cwd(), 'package.json'));
 	} catch (e) {
 
 	}
@@ -55,7 +105,13 @@ MyGenerator.prototype.askFor = function askFor() {
 	var prompts = [
 		{
 			name   : 'projectName',
-			message: 'widget Name?(模块名)',
+			message: 'project Name(项目名)',
+			default: folderName,
+			warning: ''
+		},
+		{
+			name   : 'projectDesc',
+			message: 'Description of this Widget?(描述)',
 			default: folderName,
 			warning: ''
 		},
@@ -64,13 +120,33 @@ MyGenerator.prototype.askFor = function askFor() {
 			message: 'Chose Your Git Repository(git仓库):',
 			type	 : 'list',
 			choices: ['gitlab.alibaba-inc.com', 'github.com'],
-			default: 'gitlab.alibaba-inc.com',
+			default: 'github.com',
 			warning: ''
 		},
 		{
-			name   : 'projectDesc',
-			message: 'Description of this Widget?(描述)',
-			default: folderName,
+			name   : 'assetsPath',
+			message: '资源文件(js/css)上线地址根目录(可以是绝对或相对路径)',
+			default: '../../',
+			warning: ''
+		},
+		{
+			name   : 'port',
+			message: 'FlexCombo Server Port:',
+			default: '8081',
+			warning: ''
+		},
+		{
+			name   : 'proxyPort',
+			message: 'HTTP Proxy Server Port:',
+			default: '8080',
+			warning: ''
+		},
+		{
+			name   : 'cssCompile',
+			message: 'scss/less?',
+			type	 : 'list',
+			choices: ['scss', 'less'],
+			default: 'scss',
 			warning: ''
 		},
 		{
@@ -102,18 +178,34 @@ MyGenerator.prototype.askFor = function askFor() {
 		this.packageName = props.projectName;// project-name
 		this.projectName = parseMojoName(this.packageName); //ProjectName
 		this.packageDesc = props.projectDesc;
+		this.packageJSON = packageJSON;
+		this.packageConfig = packageJSON;
 		this.gitRepository = props.gitRepository;
 		this.author = props.author;
 		this.email = props.email;
 		this.version = props.version;
+		this.port = props.port;
+		this.proxyPort = props.proxyPort;
+		this.cssCompile = props.cssCompile;
 
+		// 计算 assetsPath，末尾补全`/`
+		if(props.assetsPath.indexOf('http://') == 0 ){
+			// http://abc.com
+			this.assetsPath = props.assetsPath;
+		} else if(/^\w/.test(props.assetsPath)){
+			// 不带 http 的域名
+			this.assetsPath = 'http://' + props.assetsPath;
+		} else {
+			this.assetsPath = props.assetsPath;
+		}
+
+		this.assetsPath = this.assetsPath.replace(/\/$/i,'') + '/';
 		cb();
 
 	}.bind(this));
 };
 
 MyGenerator.prototype.bowerJSON = function bowerJSON() {
-	this.template('_bower.json', 'bower.json');
 	this.template('_bowerrc', '.bowerrc');
 };
 
@@ -123,25 +215,30 @@ MyGenerator.prototype.git = function git() {
 
 MyGenerator.prototype.app = function app() {
 	var that = this;
-	this.template('README.md');
-	this.mkdir('demo');
-	this.mkdir('test');
-	this.mkdir('test/lib');
 
-	// proxy template
-	this.template('index.js', 'index.js');
-	this.template('index.css', 'index.css');
-	this.template('demo/index.html', 'demo/index.html');
+	// 创建文件夹
+	this.mkdir('build');
+	this.mkdir('src');
+	this.mkdir('src/pages');
+	this.mkdir('src/mods');
+	this.mkdir('src/widgets');
+	this.mkdir('doc');
+	this.mkdir('grunt');
+	this.mkdir('grunt/default');
+	this.mkdir('grunt/custom');
 
-	// 测试用例资源文件
-	this.copy('test/lib/async.js', 'test/lib/async.js');
-	this.copy('test/lib/chai.js','test/lib/chai.js');
-	this.copy('test/lib/mocha.js','test/lib/mocha.js');
-	this.copy('test/lib/mocha.css','test/lib/mocha.css');
-	this.copy('test/lib/should.js','test/lib/should.js');
-	this.copy('test/lib/simulate-dom-event.js','test/lib/simulate-dom-event.js');
-	this.template('test/runner.html', 'test/runner.html');
-	this.template('test/spec.js', 'test/spec.js');
+	// 创建根目录文件
+	this.template('Gruntfile.js','Gruntfile.js');
+	this.template('package.json','package.json');
+	this.template('README.md','README.md');
+
+	// 创建config.js
+	this.template('src/config.js','src/config.js');
+
+	// 生成grunt命令
+	this.copy('src/config.js','src/config.js');
+	
+
 };
 
 function consoleColor(str, num) {
