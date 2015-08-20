@@ -1,0 +1,21 @@
+{
+  "name": "grunt",
+  "version": "0.1.0",
+  "description": "grunt plugin configurations",
+  "moduleType": [
+    "node"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "./",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "default": "xapp-grunt#latest"
+  }
+}
+

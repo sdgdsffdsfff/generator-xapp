@@ -32,6 +32,14 @@ var MyGenerator = module.exports = function MyGenerator(args, options, config) {
 			}
 		};
 
+		var loadGruntPromise = new Promise(function (resolve, reject) {
+
+			exec('cd grunt;bower install;cd ../', function (error, stdout, stderr) {
+				loadCallback('grunt 命令安装完毕!', error, resolve, reject);
+			}.bind(that));
+
+		});
+
 		var loadBasePromise = new Promise(function (resolve, reject) {
 
 			exec('cd src/widgets/;bower install;cd ../../', function (error, stdout, stderr) {
@@ -40,7 +48,7 @@ var MyGenerator = module.exports = function MyGenerator(args, options, config) {
 
 		});
 
-		Promise.all([loadBasePromise])
+		Promise.all([loadGruntPromise,loadBasePromise])
 			.then(function() {
 
 				this.prompt([
@@ -230,7 +238,7 @@ MyGenerator.prototype.app = function app() {
 	this.mkdir('grunt/custom');
 
 	// 创建根目录文件
-	this.template('Gruntfile.js','Gruntfile.js');
+	this.copy('Gruntfile.js','Gruntfile.js');
 	this.template('package.json','package.json');
 	this.template('README.md','README.md');
 
@@ -240,20 +248,8 @@ MyGenerator.prototype.app = function app() {
 	// 生成grunt命令
 	//this.copy('src/config.js','src/config.js');
 
-	// 生成grunt命令文件
-	this.copy('grunt/default/clean.js');
-	this.copy('grunt/default/combohtml.js');
-	this.copy('grunt/default/copy.js');
-	this.copy('grunt/default/cssmin.js');
-	this.copy('grunt/default/domman.js');
-	this.copy('grunt/default/flexcombo.js');
-	this.copy('grunt/default/kmb.js');
-	this.copy('grunt/default/less.js');
-	this.copy('grunt/default/replace.js');
-	this.copy('grunt/default/sass.js');
-	this.copy('grunt/default/uglify.js');
-	this.copy('grunt/default/watch.js');
-	this.copy('grunt/custom/domman.js');
+	// 生成grunt的bower文件
+	this.copy('grunt/bower.json');
 
 	// 初始化mod
 	this.template('src/mods/header.html');
