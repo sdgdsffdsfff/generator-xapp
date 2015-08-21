@@ -9,7 +9,7 @@
 
 	KISSY.config({
 		packages: [{
-			name: "h5-test",
+			name: "<%= packageName %>",
 			path: assetsPath,
 		}]
 	});
