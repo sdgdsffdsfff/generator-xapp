@@ -2,8 +2,8 @@
 <html lang="zh">
 <head>
     <meta charset="UTF-8">
-	<title> H5Test - Home </title>
-	<!--#include path="../../mods/header.html"-->
+	<title> <%= projectName %> - Home </title>
+	<!--#include virtual="../../mods/header.html" -->
 </head>
 <body>
 
@@ -13,7 +13,7 @@
 <div class="example">&nbsp;</div>
 
 <script>
-    KISSY.use('h5-test/pages/home/index', function(S, Home) {
+    KISSY.use('<%= packageName %>/pages/home/index', function(S, Home) {
 		Home.init({
 			msg:'hello world!'	
 		});

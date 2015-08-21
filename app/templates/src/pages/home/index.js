@@ -1,9 +1,9 @@
 /**
- * @fileoverview H5Test - Home.
- * @author 拔赤<jay.li@alibaba-inc.com>.
+ * @fileoverview <%= packageName %> - Home.
+ * @author <%= author %> - <%= email %>
  */
 /**
- * KISSY.use('h5-test/pages/home/index',function(S,Home){
+ * KISSY.use('<%= packageName %>/pages/home/index',function(S,Home){
  *		new Home();
  * });
  */
@@ -20,28 +20,15 @@ KISSY.add(function (S, require, exports, module) {
 	var Home = {
 		init:function(opt){
 			var self = this;
-			self.buildParam(opt);
 			
 			/* 这里开始你的代码 */
-			$('h1').html('ok, ' + self.msg);
+			$('h1').html('ok, ' + opt.msg);
 
-			return this;
-		},
-		/* 将入参挂到单例对象上 */
-		buildParam:function(o){
-			var self = this;
-			o = (o === undefined) ? {} : o;
-			function setParam(def, key){
-				var v = o[key];
-				self[key] = (v === undefined || v === null) ? def : v;
-			}
-			S.each({
-				/* 构造器默认参数,key:value 形式 */
-			},setParam);
 			return this;
 		}
 	};
 
+	// 混合自定义事件的掺元对象
 	S.mix(Home, S.Event.Target);
 	module.exports = Home;
 });

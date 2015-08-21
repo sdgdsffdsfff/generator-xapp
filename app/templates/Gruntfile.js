@@ -36,14 +36,6 @@ module.exports = function (grunt) {
 	// 注册Grunt子命令
 	// -------------------------------------------------------------
 
-	// 启动目标代码调试 :  online 调试时的本地服务
-	grunt.registerTask('server', '开启本地 Server', function () {
-
-		task.run([
-			// 'fast_build',
-			'flexcombo:server',
-			'watch:server']);
-	});
 
 	var taskAction = [
 		'clean:build',

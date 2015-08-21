@@ -33,7 +33,7 @@ var MyGenerator = module.exports = function MyGenerator(args, options, config) {
 		};
 
 		var loadGruntPromise = new Promise(function (resolve, reject) {
-
+			cosole.log('正在安装 gurnt 命令包...');
 			exec('cd grunt;bower install;cd ../', function (error, stdout, stderr) {
 				loadCallback('grunt 命令安装完毕!', error, resolve, reject);
 			}.bind(that));
@@ -41,7 +41,7 @@ var MyGenerator = module.exports = function MyGenerator(args, options, config) {
 		});
 
 		var loadBasePromise = new Promise(function (resolve, reject) {
-
+			console.log('正在安装种子文件...');
 			exec('cd src/widgets/;bower install;cd ../../', function (error, stdout, stderr) {
 				loadCallback('种子文件安装完毕!', error, resolve, reject);
 			}.bind(that));
@@ -136,18 +136,6 @@ MyGenerator.prototype.askFor = function askFor() {
 			name   : 'assetsPath',
 			message: '资源文件(js/css)上线地址根目录(可以是绝对或相对路径)',
 			default: '../../',
-			warning: ''
-		},
-		{
-			name   : 'port',
-			message: 'FlexCombo Server Port:',
-			default: '8081',
-			warning: ''
-		},
-		{
-			name   : 'proxyPort',
-			message: 'HTTP Proxy Server Port:',
-			default: '8080',
 			warning: ''
 		},
 		{
