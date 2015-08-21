@@ -6,7 +6,6 @@ var ABC = require('abc-generator');
 var Promise = require('promise');
 var Logo = require('./logo').Logo;
 var exec = require('child_process').exec;
-var PageInit = require('../page/util.js').initPageFiles;
 var gitConfig = require('git-config'),
 	curGitUser = gitConfig.sync().user,
 	curUserName = curGitUser.name,
@@ -14,11 +13,15 @@ var gitConfig = require('git-config'),
 
 var MyGenerator = module.exports = function MyGenerator(args, options, config) {
 	ABC.UIBase.apply(this, arguments);
+	var self = this;
 	this.pkg = JSON.parse(this.readFileAsString(path.join(__dirname, '../package.json')));
 
 	this.on('error', function () {
 	});
 	this.on('end', function () {
+		var cb = this.async();
+		var that = this;
+
 		var cb = this.async();
 		var that = this;
 
@@ -32,46 +35,47 @@ var MyGenerator = module.exports = function MyGenerator(args, options, config) {
 			}
 		};
 
-		var loadGruntPromise = new Promise(function (resolve, reject) {
-			cosole.log('正在安装 gurnt 命令包...');
+		// load grunt task config
+		var loadGruntTaskConfigPromise = new Promise(function(resolve, reject) {
+
+			// grunt task config template
 			exec('cd grunt;bower install;cd ../', function (error, stdout, stderr) {
-				loadCallback('grunt 命令安装完毕!', error, resolve, reject);
+				loadCallback('grunt 命令安装', error, resolve, reject);
 			}.bind(that));
 
 		});
 
 		var loadBasePromise = new Promise(function (resolve, reject) {
-			console.log('正在安装种子文件...');
+
 			exec('cd src/widgets/;bower install;cd ../../', function (error, stdout, stderr) {
-				loadCallback('种子文件安装完毕!', error, resolve, reject);
+				loadCallback('种子文件安装', error, resolve, reject);
 			}.bind(that));
 
 		});
 
-		Promise.all([loadGruntPromise,loadBasePromise])
+		Promise.all([loadGruntTaskConfigPromise, loadBasePromise])
 			.then(function() {
 
 				this.prompt([
 					{
 						name   : 'npm_install',
-						message: 'Install node_modules now?',
-						default: 'Y/n',
+						message: 'Install node_modules for grunt now?',
+						default: 'N/y',
 						warning: ''
 					}
 				], function (props, err) {
+
 					if (err) {
 						return this.emit('error', err);
 					}
 
-					this.npm_install = (/^(y|Y)/i).test(props.npm_install);
+					this.npm_install = (/^y/i).test(props.npm_install);
 					if (this.npm_install) {
-
 						this.npmInstall('', {}, function (err) {
 
 							if (err) {
 								return console.log('\n' + yellow('please run "sudo tnpm install"\n'));
 							}
-
 							console.log(green('\n\nnode modules was installed successful. \n\n'));
 						});
 					} else {
