@@ -29,7 +29,6 @@
     "grunt-contrib-watch": "",
     "clam-util": "",
     "grunt-exec": "",
-    "grunt-flexcombo": "",
     "grunt-domman": "",
     "grunt-combohtml": "",
     "grunt-replace": "",
