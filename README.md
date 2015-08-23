@@ -1,13 +1,12 @@
 ## generator-xapp
 
-by bachi@taobao.com
+by 拔赤 bachi@taobao.com
 
 [![NPM version][npm-image]][npm-url]
 [![build status][travis-image]][travis-url]
 [![Coverage Status](https://coveralls.io/repos/jayli/generator-xapp/badge.svg?branch=master&service=github)](https://coveralls.io/github/jayli/generator-xapp?branch=master)
 [![node version][node-image]][node-url]
 [![npm download][npm-download]][download-url]
-[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/jayli/generator-xapp)
 
 [![generator-mpi](https://nodei.co/npm/generator-xapp.png)](https://npmjs.org/package/generator-xapp)
 

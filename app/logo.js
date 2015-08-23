@@ -23,7 +23,7 @@ function Logo(contex) {
 	logo += purple('➭') + ' http://m.kissyui.com' + '\n' +
 			purple('➭') + ' KISSY MINI 项目代码生成器' + '\n';
 
-	logo += '\nPlease follow these questions.\n';
+	logo += '\n开源、高效、速度\n';
 
 	return logo;
 }
